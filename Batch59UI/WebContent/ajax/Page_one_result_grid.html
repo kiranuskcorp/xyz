@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+var count = 1001;
+$(document).ready(function(){
+var startTr = '<tr>';
+var endTr = '</tr>';
+var tdData = '<td><input type="checkbox" name="checkbox"/></td>';
+var thData = '<th></th>';
+
+var obj;
+
+
+			$.ajax({
+				url:"result_grid.json",
+				type:"get",
+				success: function(res){
+					obj = res;
+					console.log(res);
+//				postProcess(obj);
+				},
+				error: function(e){
+			      console.log(e);
+				}
+			
+			
+			});
+		//	console.log(obj);
+		   function postProcess(obj){
+			var tbl = $("<table/>").attr("id","mytable").attr("class","table table-bordered");
+			for(var i=0;i<obj.length;i++){
+				thData += '<th>'+obj[i].columnName+'</th>';
+				tdData += '<td>'+checkContent(obj[i].columnType,obj[i].editable)+'</td>';
+			}
+				
+			$("#div1").append(tbl);//table
+			$("#mytable").append(startTr+thData+endTr);
+			for(var j = 0;j<3;j++){
+			$("#mytable").append(startTr+tdData+endTr);
+			}
+		   }
+		
+		//console.log(tdData);
+	$("#addColumn").on("click",function(){
+	
+	$("#mytable").append(startTr+tdData+endTr);
+	
+	});
+	$("#removeColumn").click(function(){
+	
+	$("table tr").has("input[type='checkbox']:checked").remove();
+	
+	});
+	
+
+
+});
+
+function checkContent(content,editable){
+var result = '';
+
+if(editable == 'yes'){
+switch(content){
+case "Number": result ='<input type="text" name="number" value="'+(count++)+'"/>';
+break;
+case "String": result ='<input type="text" name="string" value="'+content+'"/>';
+break;
+case "Date": result ='<input type="date" name="date" value="'+content+'"/>';
+break;
+case "Boolean": result ='<select class="form-control" id="editable">'
+	  +'<option id="Yes">Yes</option>'
+	  +'<option id="No">No</option>'
+	  +'</select>';
+break;
+
+}
+
+
+
+}else{
+result = content;
+
+}
+
+return result;
+
+}
+
+</script>
+</head>
+<body>
+<input class="btn btn-default" type="button" value="Add Column" id="addColumn"> <input class="btn btn-default" type="button" value="Remove Column" id="removeColumn">
+<div id="div1">
+
+
+
+</div>
+
+
+</body>
+</html>

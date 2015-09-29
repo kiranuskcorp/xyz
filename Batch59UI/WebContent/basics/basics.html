@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privilege</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="./script/controllers/basicCtrl.js"></script>
+</head>
+<body ng-app="App" ng-controller="basicCtrl as basic">
+	<div class="container-fluid">
+	   <form name="myForm" novalidate class="css-form">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>
+								<b>Student Marks</b>
+							</h4>
+						</div>
+					</div>
+						<div>
+						<!-- Validation Start -->
+						<div class="row" >
+								<div class="col-md-3">
+								User Name:<input type="text" name="username" ng-model="username" required="required"/>
+								<span class="error"
+									ng-show="(myForm.username.$dirty && myForm.username.$invalid)  || isSubmitted ">
+									<span ng-show="myForm.username.$error.required">Username
+										is required.</span>
+										
+								</span>
+								Password:<input type="password" name="password" ng-model="password" required="required"/>
+								<input type="submit" value="submit" ng-model="submit" ng-click="isSubmitted = true;callCtrl();"/>
+								</div>
+								</div>
+								
+						<!-- Validation end -->
+						<!-- ng-show starts -->
+						<div>
+						Ng show Content:<p ng-show="show"> This is paragraph</p>
+								<br/><input type="checkbox"  ng-model="show"/>
+							</div>
+						<!-- ng-show ends -->
+						<!-- ng-hide starts -->
+							<div>	
+						Ng hide Content:<p ng-hide="hide"> This is paragraph</p>
+								<br/><input type="checkbox"  ng-model="hide"/>
+									</div>
+						<!-- ng-hide ends -->
+						
+						<div>
+						<!-- ng-disabled starts -->
+						Ng disable Content:<p ng-disabled="hide"> This is paragraph</p>
+								<br/><input type="checkbox"  ng-model="disable"/>
+									</div>
+						<!-- ng-disabled ends -->
+						
+						
+						<div class="row" >
+								<div class="col-md-3">
+								Filter:<input type="text" name="studentSubject" ng-model="studentSubject"/>
+								</div>
+								</div>
+							<div class="row" >
+								<div class="col-md-3">
+								<table class="table table-bordered">
+								<tr><th nowrap>Subject Names</th><th nowrap>Subject Marks</th></tr>
+								<tr ng-repeat="subject in subjects | filter:studentSubject | orderBy:'marks'"><td>{{subject.name | uppercase}}</td><td>{{subject.marks | currency}}</td></tr>
+								</table>
+								</div>
+								
+							</div>
+						</div>
+				</div>
+			</div>
+			</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<html>
+<head>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    
+<script>
+var app = angular.module("routing",['ngRoute']);
+app.config(function($routeProvider){
+	$routeProvider
+	.when('/',{
+		templateUrl:'pages/home.html',
+		controller:'mainCtrl'
+	})
+	.when('/about',{
+		templateUrl:'pages/about.html',
+		controller:'aboutCtrl'
+	})
+	.when('/contact',{
+		templateUrl:'pages/contact.html',
+		controller:'contactCtrl'
+	})
+});
+
+app.controller("mainCtrl",function($scope){
+	
+	$scope.message = "Home";
+});
+
+app.controller("aboutCtrl",function($scope,$http){
+	
+	$scope.message = "about";
+	$http.get("result_grid.json").success(function(res){
+		console.log("res",res);
+		$scope.result = res;
+	});
+	
+});
+app.controller("contactCtrl",function($scope){
+	$scope.message = "contact";
+	
+});
+
+
+</script>
+</head>
+<body ng-app="routing">
+<a href="#">Home</a>
+<a href="#about">about</a>
+<a href="#contact">contact</a>
+<div ng-controller="mainCtrl">
+
+<div ng-view></div>
+
+
+</div>
+
+
+
+</body>
+</html>

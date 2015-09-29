@@ -1,0 +1,22 @@
+[
+    {
+        "columnName": "column1",
+        "columnType": "Number",
+        "editable": "yes"
+    },
+    {
+        "columnName": "column2",
+        "columnType": "Boolean",
+        "editable": "yes"
+    },
+    {
+        "columnName": "column3",
+        "columnType": "Date",
+        "editable": "yes"
+    },
+    {
+        "columnName": "column4",
+        "columnType": "string",
+        "editable": "no"
+    }
+]
